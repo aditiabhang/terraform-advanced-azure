@@ -8,17 +8,20 @@ terraform {
   }
 
   required_providers {
-    azure = {
-      source  = "hashicorp/azurerm"
-      version = ">= 2.0"
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "3.96.0"
     }
   }
 }
+
+# Default Provider-1 block in Central US 
 provider "azurerm" {
-  features {}
+    features {}
 }
 
-resource "azurerm_resource_group" "demo-rg" {
-  name     = "demo-resource-group"
-  location = "East US"
-}
+# # Provider-2 block in East US 
+# provider "azurerm" {
+#     alias = "central-provider"
+#     features {}
+# }
