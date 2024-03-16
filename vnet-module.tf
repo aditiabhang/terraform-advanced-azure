@@ -3,7 +3,7 @@ resource "azurerm_virtual_network" "demo-vnet" {
     name                = local.vnet_name
     resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
     location            = azurerm_resource_group.demo-resource-group-east-us.location
-    address_space       = ["10.0.0.0/16"]
+    address_space       = local.vnet_address_space
     tags = local.common_tags
 }
 
