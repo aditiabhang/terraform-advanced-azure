@@ -9,7 +9,7 @@ resource "azurerm_virtual_network" "demo-vnet" {
 
 # Resource - Subnet
 resource "azurerm_subnet" "demo-subnet" {
-    name                 = "my-demo-subnet"
+    name                 = "Demo-Subnet"
     resource_group_name  = azurerm_resource_group.demo-resource-group-east-us.name
     virtual_network_name = azurerm_virtual_network.demo-vnet.name
     address_prefixes     = ["10.0.0.0/24"]
@@ -17,7 +17,7 @@ resource "azurerm_subnet" "demo-subnet" {
 
 # Resource - Public IP
 resource "azurerm_public_ip" "demo-public-ip" {
-    name                = "my-demo-public-ip"
+    name                = "Demo-Public-IP"
     resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
     location            = azurerm_resource_group.demo-resource-group-east-us.location
     allocation_method   = "Dynamic"
@@ -25,11 +25,11 @@ resource "azurerm_public_ip" "demo-public-ip" {
 
 # Resource - Network Interface
 resource "azurerm_network_interface" "demo-network-interface" {
-    name = "my-demo-network-interface"
+    name = "Demo-NIC"
     resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
     location = azurerm_resource_group.demo-resource-group-east-us.location
     ip_configuration {
-        name                          = "demo-ip-config"
+        name                          = "Demo-IP-Config"
         subnet_id                     = azurerm_subnet.demo-subnet.id
         private_ip_address_allocation = "Dynamic"
         public_ip_address_id = azurerm_public_ip.demo-public-ip.id
