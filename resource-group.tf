@@ -12,12 +12,12 @@ resource "azurerm_resource_group" "demo-resource-group-east-us" {
 #   provider = azurerm.central-provider
 # }
 
-# # Resource - Random String
-# resource "random_string" "demo-random-string" {
-#   length  = 16
-#   special = false
-#   upper   = false
-# }
+# Resource - Random String
+resource "random_string" "demo-random-string" {
+  length  = 16
+  special = false
+  upper   = false
+}
 
 # # Resource - Azure Storage Account
 # resource "azurerm_storage_account" "mysa" {

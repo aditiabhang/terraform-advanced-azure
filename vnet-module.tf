@@ -27,10 +27,15 @@ resource "azurerm_subnet" "demo-subnet" {
 
 # Resource - Public IP
 resource "azurerm_public_ip" "demo-public-ip" {
+  # Meta-Argument: depends_on - explicit dependency
+  depends_on          = [azurerm_virtual_network.demo-vnet, azurerm_subnet.demo-subnet]
+
   name                = "Demo-Public-IP"
   resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
   location            = azurerm_resource_group.demo-resource-group-east-us.location
   allocation_method   = "Dynamic"
+
+  domain_name_label = "app1-vm-${random_string.demo-random-string.id}"
 }
 
 # Resource - Network Interface
