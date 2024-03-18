@@ -10,7 +10,7 @@ variable "environment" {
   description = "The environment for the deployment"
   type        = string
   default     = "Learning_Environment"
-# default     = "Development_Environment"
+  #   default = "Development_Environment"
 }
 
 # Variable - Resource Group Name

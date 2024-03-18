@@ -2,7 +2,7 @@
 resource "azurerm_resource_group" "demo-resource-group-east-us" {
   name     = local.rg_name
   location = var.resource_group_location
-  tags = local.common_tags
+  tags     = local.common_tags
 }
 
 # # Resource group in Central US region - 'central-provider'

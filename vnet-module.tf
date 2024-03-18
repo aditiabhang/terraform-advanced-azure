@@ -1,39 +1,49 @@
 # Resource - Virtual Network
 resource "azurerm_virtual_network" "demo-vnet" {
-    name                = local.vnet_name
-    resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
-    location            = azurerm_resource_group.demo-resource-group-east-us.location
-    address_space       = local.vnet_address_space
-    tags = local.common_tags
+  name                = local.vnet_name
+  resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
+  location            = azurerm_resource_group.demo-resource-group-east-us.location
+  address_space       = local.vnet_address_space
+  tags                = local.common_tags
+}
+
+# Resource - Virtual Network using Conditional Expression
+resource "azurerm_virtual_network" "demo-vnet-conditional-expression" {
+  count               = var.environment == "Learning_Environment" ? 1 : 3
+  name                = "${local.vnet_name}-${count.index + 1}"
+  resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
+  location            = azurerm_resource_group.demo-resource-group-east-us.location
+  address_space       = local.vnet_address_space
+  tags                = local.common_tags
 }
 
 # Resource - Subnet
 resource "azurerm_subnet" "demo-subnet" {
-    name                 = "Demo-Subnet"
-    resource_group_name  = azurerm_resource_group.demo-resource-group-east-us.name
-    virtual_network_name = azurerm_virtual_network.demo-vnet.name
-    address_prefixes     = ["10.0.0.0/24"]
+  name                 = "Demo-Subnet"
+  resource_group_name  = azurerm_resource_group.demo-resource-group-east-us.name
+  virtual_network_name = azurerm_virtual_network.demo-vnet.name
+  address_prefixes     = ["10.0.0.0/24"]
 }
 
 # Resource - Public IP
 resource "azurerm_public_ip" "demo-public-ip" {
-    name                = "Demo-Public-IP"
-    resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
-    location            = azurerm_resource_group.demo-resource-group-east-us.location
-    allocation_method   = "Dynamic"
+  name                = "Demo-Public-IP"
+  resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
+  location            = azurerm_resource_group.demo-resource-group-east-us.location
+  allocation_method   = "Dynamic"
 }
 
 # Resource - Network Interface
 resource "azurerm_network_interface" "demo-network-interface" {
-    name = "Demo-NIC"
-    resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
-    location = azurerm_resource_group.demo-resource-group-east-us.location
-    ip_configuration {
-        name                          = "Demo-IP-Config"
-        subnet_id                     = azurerm_subnet.demo-subnet.id
-        private_ip_address_allocation = "Dynamic"
-        public_ip_address_id = azurerm_public_ip.demo-public-ip.id
-    }
+  name                = "Demo-NIC"
+  resource_group_name = azurerm_resource_group.demo-resource-group-east-us.name
+  location            = azurerm_resource_group.demo-resource-group-east-us.location
+  ip_configuration {
+    name                          = "Demo-IP-Config"
+    subnet_id                     = azurerm_subnet.demo-subnet.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.demo-public-ip.id
+  }
 }
 # module "vnet" {
 #   source  = "Azure/vnet/azurerm"
