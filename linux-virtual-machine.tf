@@ -8,7 +8,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
     admin_username      = "adminuser"
     admin_ssh_key {
         username   = "adminuser"
-        public_key = file("${path.module}/ssh-keys/terraform-azure.pub")
+        public_key = file("${path.module}/ssh-chaavya/terraform-azure.pub")
     }
     network_interface_ids = [azurerm_network_interface.demo-network-interface.id]
 
